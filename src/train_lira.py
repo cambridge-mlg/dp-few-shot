@@ -127,7 +127,7 @@ class Learner:
             self.dataset_reader = TfDatasetReader(
                 dataset=dataset['name'],
                 task=dataset['task'],
-                context_batch_size=1000,
+                context_batch_size=2000,
                 target_batch_size=self.args.test_batch_size,
                 path_to_datasets=self.args.download_path_for_tensorflow_datasets,
                 num_classes=dataset['num_classes'],
