@@ -5,7 +5,7 @@ import torchvision.transforms as T
 from PIL import Image
 import numpy as np
 
-MAX_IN_MEMORY = 20000
+MAX_IN_MEMORY = 60000
 
 
 class TfDatasetReader:
