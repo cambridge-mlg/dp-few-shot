@@ -198,7 +198,7 @@ class Learner:
 
         delta = None
         if self.args.private:
-            delta = 1.0 / (len(train_loader.dataset))
+            delta = 1/(self.args.examples_per_class//2)
             privacy_engine = PrivacyEngine(accountant='rdp', secure_mode=self.args.secure_rng)
 
 
@@ -273,7 +273,6 @@ class Learner:
         # Sample weights are set to `None` by default, but can be changed here.
         sample_weight = None
         n = x.shape[0]
-        delta = 1.0 / float(n / 2)
 
         # Train the target and shadow models. We will use one of the model in `models`
         # as target and the rest as shadow.
