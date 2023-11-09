@@ -160,14 +160,11 @@ class Learner:
 
         batch_size = self.args.train_batch_size
 
-        train_loader_generator = torch.Generator()
-        train_loader_generator.manual_seed(self.args.seed)
         self.start_time_final_run = datetime.now()
         train_loader = DataLoader(
             TensorDataset(train_images, train_labels),
             batch_size=batch_size if self.args.private else min(self.args.train_batch_size, self.args.max_physical_batch_size),
-            shuffle=True,
-            generator=train_loader_generator
+            shuffle=True
         )
 
         model = self.init_model(num_classes=num_classes)
@@ -204,8 +201,6 @@ class Learner:
             delta = 1.0 / (len(train_loader.dataset))
             privacy_engine = PrivacyEngine(accountant='rdp', secure_mode=self.args.secure_rng)
 
-            seeded_noise_generator = torch.Generator(device=self.device)
-            seeded_noise_generator.manual_seed(self.args.seed)
 
             model, optimizer, train_loader = privacy_engine.make_private_with_epsilon(
                 module=model,
@@ -214,8 +209,7 @@ class Learner:
                 target_epsilon=self.args.target_epsilon,
                 epochs=self.args.epochs,
                 target_delta=delta,
-                max_grad_norm=self.args.max_grad_norm,
-                noise_generator=seeded_noise_generator if not self.args.secure_rng else None)
+                max_grad_norm=self.args.max_grad_norm)
 
         if self.args.private:
             for epoch in range(self.args.epochs):
