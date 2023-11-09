@@ -124,10 +124,17 @@ class Learner:
 
             self.num_classes = dataset['num_classes']
 
+            if self.args.examples_per_class == -1:
+                context_set_size = -1  # this is the use the entire training set case
+            elif (self.args.examples_per_class is not None) and (dataset['name'] != 'oxford_iiit_pet'):  # bug in pets
+                context_set_size = self.args.examples_per_class * self.num_classes  # few-shot case
+            else:
+                context_set_size = 2000  # VTAB1000
+
             self.dataset_reader = TfDatasetReader(
                 dataset=dataset['name'],
                 task=dataset['task'],
-                context_batch_size=2000,
+                context_batch_size=context_set_size,
                 target_batch_size=self.args.test_batch_size,
                 path_to_datasets=self.args.download_path_for_tensorflow_datasets,
                 num_classes=dataset['num_classes'],
@@ -141,7 +148,7 @@ class Learner:
 
             # create the training dataset
             train_images, train_labels = self.dataset_reader.get_context_batch()
-
+            print("number of samples", len(train_images))
             self.logger.print_and_log("{}".format(dataset['name']))
 
             self.run_lira(
