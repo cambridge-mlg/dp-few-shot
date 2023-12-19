@@ -162,9 +162,11 @@ To ask questions or report issues, please open an issue on the issues tracker.
 If you use this code, please cite our [paper](https://arxiv.org/pdf/2302.01190.pdf).
 ```
 @inproceedings{tobaben2023efficacy,
-  title={On the Efficacy of Differentially Private Few-shot Image Classification},
-  author={Tobaben, Marlon and Shysheya, Aliaksandra and Bronskill, John and Paverd, Andrew and Tople, Shruti and Zanella-Beguelin, Santiago and Turner, Richard E and Honkela, Antti},
-  journal={arXiv preprint arXiv:2302.01190},
-  year={2023}
+    title={On the Efficacy of Differentially Private Few-shot Image Classification},
+    author={Tobaben, Marlon and Shysheya, Aliaksandra and Bronskill, John and Paverd, Andrew and Tople, Shruti and Zanella-Beguelin, Santiago and Turner, Richard E and Honkela, Antti},
+    journal={Transactions on Machine Learning Research},
+    issn={2835-8856},
+    year={2023}
+    url={https://openreview.net/forum?id=hFsr59Imzm},
 }
 ```
